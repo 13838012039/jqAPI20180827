@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./main.js"></script>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <style>
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li id="item1">item1</li>
+        <li id="item2">item2</li>
+        <li id="item3">item3</li>
+        <li id="item4">item4</li>
+        <li id="item5">item5</li>
+        <li id="item6">item6</li>
+    </ul>
+
+
+    <script>
+        window.jQuery = function(nodeOrSelector) {
+            let nodes = {}
+            if (typeof nodeOrSelector === 'string') {
+                let temp = document.querySelectorAll(nodeOrSelector)
+                for (let i = 0; i < temp.length; i++) {
+                    nodes[i] = temp[i]
+                }
+                nodes.length = temp.length
+            } else if (nodeOrSelector instanceof Node) {
+                nodes = {
+                    0: nodeOrSelector,
+                    length: 1
+                }
+            }
+
+
+            nodes.addClass = function(classes) {
+                classes.forEach((value) => {
+                    for (let i = 0; i < nodes.length; i++) {
+                        nodes[i].classList.add(value)
+                    }
+                })
+            }
+            nodes.getSibling = function() {
+                if (nodes.length === 1) {
+                    var array = {
+                        length: 0
+                    }
+                    var childrenAll = nodes.parentNode.children
+                    for (let i = 0; i < childrenAll.length; i++) {
+                        if (childrenAll[i] !== nodes) {
+                            array[array[i]] = childrenAll[i]
+                            array[length]++
+                        }
+                    }
+                }
+                return array
+            }
+
+            nodes.setText = function(text) {
+
+                if (text === undefined) {
+                    let texts = []
+                    for (let i = 0; i < nodes.length; i++) {
+                        texts.push(nodes[i].textContent)
+                    }
+                    return texts
+                } else {
+                    for (let i = 0; i < nodes.length; i++) {
+                        nodes[i].textContent = text
+                    }
+                }
+
+            }
+
+            return nodes
+        }
+
+        node2 = jQuery('ul>li')
+        node2.addClass(['blue'])
+        console.log(node2.getText())
+    </script>
+
+
+    <!-- <script>
+        console.log(typeof jQuery)
+    </script> -->
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
